@@ -1,0 +1,40 @@
+spring:
+  profiles:
+    active: local
+
+  datasource:
+    url: jdbc:mysql://localhost:[forwardedPort]/bpeach
+    username: bpeach
+    password: ${DATASOURCE_PASSWORD}
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    hikari:
+      minimum-idle: 7
+      maximum-pool-size: 7
+      connection-test-query: SELECT 1
+      max-lifetime: 1800000
+      idle-timeout: 1700000
+      leak-detection-threshold: 2000
+
+  jpa:
+    database: mysql
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+    properties:
+      hibernate.dialect: org.hibernate.dialect.MySQL8Dialect
+
+ssh:
+  remote_jump_host: 210.109.15.31
+  ssh_port: 22
+  user: ubuntu
+  private-key: C:\pem\bpeach-master-key.pem
+  database_port: 3306
+
+
+server:
+  port: 8080
+  shutdown: graceful
+
+logging:
+  level:
+    org.springframework: DEBUG
